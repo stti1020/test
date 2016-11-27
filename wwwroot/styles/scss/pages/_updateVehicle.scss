@@ -1,0 +1,50 @@
+﻿#updateVehicle{
+
+    .img-container {
+
+        img {
+            width: 90%; 
+            border: solid 2px; 
+            display: block; 
+            margin-left: auto;
+        }
+    }
+
+    .vehicle-picture-preview {
+        @include flexbox((
+            display: flex,
+            justify-content: center,
+            align-items: center,
+            flex: 1 auto
+        ));
+        width: 100%;
+        border: 2px solid;    
+        font-size: 60px;        
+    }
+
+    /*.update-vehicle-picture-button-container {
+        margin-top: 41px;
+        text-align: center;
+    }*/
+
+    @media screen and (max-width: 1200px) {
+
+        .flex-container {
+           @include flex-direction(column);
+        }
+
+        .img-container {
+            margin-top: 20px;
+        }
+
+        .vehicle-picture-preview {
+            height: 400px;
+        }
+
+        /*.update-vehicle-picture-button-container {
+
+            text-align: center;
+        }*/
+    }
+}
+

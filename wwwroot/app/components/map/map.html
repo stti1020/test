@@ -1,0 +1,112 @@
+﻿<div id="map">
+    <div class="row wrapper ibox-content border-bottom white-bg page-heading">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div>
+                <h1>Echtzeitkarte</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/">Startseite</a>
+                    </li>
+                    <li class="active">
+                        <strong>Echtzeitkarte</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight flex-container-column margin-to-footer">
+                <div class="row box-container flex-one">
+                    <div ng-class="mapCtrl.mapWidth" class="flex-container-column flex-one container-min-height col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+                        <div class="ibox-title">
+                            <h5>Karte</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link" ng-click="mapCtrl.resizeMapWidth()">
+                                    <i class="fa fa-arrows-h"> {{mapCtrl.showConfigIcon}}</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content flex-container-column flex-one">
+                            <form class="form-horizontal flex-container-column flex-one">
+                                <div class="flex-container-column flex-one">
+                                    <div id="googleMap" class="flex-one"></div>
+                                </div>
+
+
+                                <div class="flex-button-container">
+                                    <div class="dropup flex-button-container__button">
+                                        <button class="btn btn-w-m btn-default dropdown-toggle full-width" type="button" id="simulationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{mapCtrl.simulationDropdown}}
+                                            <span class="caret"></span>
+                                        </button>
+
+                                        <ul class="dropdown-menu flex-button-container__button full-width no-margin" aria-labelledby="simulationDropdown">
+                                            <li ng-repeat="regNumber in mapCtrl.allRegistrationNumbersWithGeoposition">
+                                                <a ng-click="mapCtrl.selectSimulationRegistrationNumber(regNumber)">{{regNumber}}</a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                     
+                                    <button type="button" class="btn btn-w-m btn-primary flex-button-container__button" ng-disabled="mapCtrl.simulationStarted" ng-click="mapCtrl.startSimulation()">Simulation starten</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--Rechte Seite-->
+                    <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-4 display-flex margin-between-boxes container-min-height" ng-show="mapCtrl.showConfig">
+                        <div class="ibox float-e-margins animated fadeInRight flex-container-column flex-one no-margin-bottom">
+                            <div class="ibox-title">
+                                <h5>Fahrzeugauswahl</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link" ng-click="mapCtrl.resizeMapWidth()">
+                                        <i class="fa fa-arrows-h"> ausblenden</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content display-flex flex-one">
+                                <form method="get" class="form-horizontal display-flex flex-one">
+                                    <div class="flex-container-column flex-one">
+                                        <div class="input-group full-width">
+                                            <input id="vehicleFilter" ng-model="filter.id" type="text" placeholder="Suche" name="search" class="form-control" ng-keyup="mapCtrl.filterValueChanged()" focus-input>
+                                        </div>
+
+                                        <div class="table-body-limiter">
+                                            <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th data-toggle="true" class="footable-visible footable-sortable footable-first-column" ng-click="orderByField='RegistrationNumber'; reverseSort = !reverseSort" ng-style="{'cursor': 'pointer'}">Kennzeichen<span class="footable-sort-indicator"></span></th>
+                                                    <th class="footable-visible footable-sortable" ng-click="orderByField='VehicleType.Name'; reverseSort = !reverseSort" ng-style="{'cursor': 'pointer'}">Fahrzeugtyp<span class="footable-sort-indicator"></span></th>
+                                                    <th class="footable-visible footable-sortable">Fahrzeug<span class="footable-sort-indicator"></span></th>
+                                                    <th class="footable-visible footable-sortable">Tour<span class="footable-sort-indicator"></span></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="footable-even display-table-row cursor-pointer" ng-repeat="vehicle in mapCtrl.allVehicles |orderBy:orderByField:reverseSort | filter: filter.id" ng-click="mapCtrl.ChangeShowRegistrationNumber(vehicle.RegistrationNumber)">
+                                                    <td class="footable-visible footable-first-column"><span class="footable-toggle"></span>{{vehicle.RegistrationNumber}}</td>
+                                                    <td class="footable-visible">{{vehicle.VehicleType.Name}}</td>
+                                                    <td class="footable-visible">
+                                                        <input ng-style="{'cursor': mapCtrl.checkBoxCursor(vehicle.RegistrationNumber, vehicle.Id)}" type="checkbox" ng-checked="mapCtrl.checkedRegistrationNumber(vehicle.RegistrationNumber)" ng-disabled="mapCtrl.stateCheckbox(vehicle.RegistrationNumber) || mapCtrl.simulationStarted" ng-click="mapCtrl.changeShowRegistrationNumber(vehicle.RegistrationNumber)"/>
+                                                    </td>
+                                                    <td class="footable-visiblefootable-last-column">
+                                                        <input type="checkbox" ng-checked="mapCtrl.checkIfVehicleHasNoTour(vehicle.Id) && mapCtrl.uncheckVehicleIfTourIsSelected(vehicle.RegistrationNumber, vehicle.Id)" ng-disabled="mapCtrl.checkIfVehicleIsSelected(vehicle.RegistrationNumber) || mapCtrl.checkIfVehicleHasNoTourToDisableButton(vehicle.Id) " ng-click="mapCtrl.showTourOfSelectedVehicle(vehicle.Id, vehicle.RegistrationNumber)"/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top no-padding button-container">
+                                            <a class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 btn btn-w-m btn-primary btn-new-vehicle" href="#VehicleManagement/createVehicle">Neues Fahrzeug anlegen</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

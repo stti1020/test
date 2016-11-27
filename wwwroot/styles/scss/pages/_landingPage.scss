@@ -1,0 +1,23 @@
+﻿#landingPage{
+
+    .boxcontainer__box {
+        margin-bottom: 30px; 
+        padding: 25px; 
+        background: white;
+    }
+
+    .boxcontainer__box:hover {
+        background: lightgrey;
+    }
+
+    .boxcontainer__header {
+        padding-bottom: 25px; 
+        text-align: center;
+    }
+
+    .boxcontainer__img {
+        height: 100%; 
+        width: 100%;
+    }
+}
+

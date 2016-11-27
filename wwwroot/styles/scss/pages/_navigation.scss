@@ -1,0 +1,32 @@
+﻿#navigation {
+    .profile-picture-replacement {
+        @include border-radius(50%);
+        @include flexbox((
+            display: flex,
+            justify-content: center,
+            align-items: center
+        ));
+
+        height: 70px;
+        width: 70px;
+        border: 2px solid;  
+    }
+
+     .profile-picture {
+        @include border-radius(50%);
+        height: 70px;
+        width: 70px;
+     }
+
+     .navigation-icon {
+         width: 20px;
+         text-align: center;
+     }
+
+     .one-line-ellipsis {
+         overflow: hidden;
+         text-overflow: ellipsis;
+     }
+}
+
+

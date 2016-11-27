@@ -1,0 +1,69 @@
+﻿#createAndUpdateRoute {
+
+    .margin-right {
+        margin-right: 10px;
+    }
+  
+    .align-center {
+        @include align-items(center);
+    }
+
+    .button-max-height {
+        max-height: 34px;
+    }
+
+    .calculate-button {
+        margin-top: 20px;
+    }
+
+    .input-group-container {
+         padding-left: 0px;
+    }
+
+    .first-input-group-container {
+        padding-left: 0px;
+    }
+
+    second-input-group-container__inputfield {
+         padding-left: 0px;
+    }
+
+    @media screen and (min-width: 1200px) {
+
+        .second-input-group-container {
+            padding: 0;
+        }
+
+        .calculate-button {
+            margin-top: 23px;
+        }
+    }
+
+    @media screen and (max-width: 485px) {
+
+        .create-mode-button {
+            margin-top: 20px;
+        }
+    }
+
+        @media screen and (max-width: 1200px) {
+
+        .input-group-container {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        .first-input-group-container {
+            padding: 0;
+        }
+
+        .second-input-group-container {
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .create-mode-button {
+            margin-top: 20px;
+        }
+    }
+}

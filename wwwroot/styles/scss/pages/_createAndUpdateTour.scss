@@ -1,0 +1,68 @@
+﻿#createAndUpdateTour {
+
+    .route-container {
+        padding-bottom: 31px;
+    }
+
+    .vehicle-container {
+        border: 1px solid #e5e6e7; 
+        padding-left: 0px; 
+        padding-right: 0px;
+    }
+
+    .vehicle-container__title {
+        margin-top: 10px;
+    }
+
+    .paragraph-min-height {
+        min-height: 18px;
+    }
+
+    .table-body-limiter {
+        max-height: 33vh;
+        overflow: auto;
+        margin-bottom: 15px;
+    }
+
+    .margin-right {
+        margin-right: 10px;
+    }
+
+    .align-center {
+        @include align-items(center);
+    }
+
+    .button-max-height {
+        max-height: 34px;
+    }
+
+     .input-background { 
+        background-color:white; 
+    }
+    
+    @media screen and (max-width: 1200px) {
+
+        .second-input-group-container {
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        .calculate-button {
+            margin-top: 20px;
+        }
+    }
+
+        @media screen and (max-width: 1000px) {
+
+        .container-min-height {
+            margin-top: 20px;
+        }
+    }
+
+    @media screen and (max-width: 485px) {
+
+        .create-mode-button {
+            margin-top: 20px;
+        }
+    }
+}

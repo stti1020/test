@@ -1,0 +1,77 @@
+﻿<div id="createAndUpdateRoute">
+    <div class="row wrapper ibox-content border-bottom white-bg page-heading">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div>
+                <h1>Routenverwaltung</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/">Startseite</a>
+                    </li>
+                    <li>
+                        <a href="#/RouteManagement">Routen anzeigen</a>
+                    </li>
+                    <li class="active">
+                        <strong>Route erstellen oder ändern</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight flex-container-column margin-to-footer">
+                <div class="display-flex flex-one">
+                    <div class="flex-container-column flex-one container-min-height">
+                        <div class="ibox-content flex-container-column flex-one">
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-container-column no-padding">
+                                <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-button-container no-padding">
+                                    <button type="button" class="btn btn-w-m btn-primary flex-button-container__button" ng-click="createAndUpdateRouteCtrl.switchCreateMode('different');">Start und Ziel unterschiedlich</button>
+                                    <button type="button" class="btn btn-w-m btn-primary flex-button-container__button create-mode-button" ng-click="createAndUpdateRouteCtrl.switchCreateMode('same');">Start und Ziel identisch</button>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-12 display-flex margin-top no-padding" ng-show="createAndUpdateRouteCtrl.createMode === 'different'">
+                                    <form class="col-xxs-12 col-xs-12 col-lg-12 no-padding" role="form" name="createAndUpdateRouteCtrl.createandUpdateRouteDifferentForm">
+                                        <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-10 input-group-container">
+                                            <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-6 display-flex align-center first-input-group-container">
+                                                <label class="col-xxs-12 col-xs-12 col-md-2 col-lg-4 no-padding margin-right">Startpunkt</label>
+                                                <input class="col-xxs-12 col-xs-12 col-lg-8 form-control first-input-group-container__inputfield" name="source" type="text" id="source" placeholder="Geben Sie bitte die Adresse des Startpunktes ein" ng-model="createAndUpdateRouteCtrl.source" required autofocus autofill />
+                                            </div>
+                                            <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-6 display-flex align-center second-input-group-container">
+                                                <label class="col-xxs-12 col-xs-12 col-md-2 col-lg-4 no-padding margin-right">Zielpunkt</label>
+                                                <input class="col-xxs-12 col-xs-12 col-md-10 col-lg-8 form-control second-input-group-container__inputfield" name="destination" type="text" id="destination" placeholder="Geben Sie bitte die Adresse des Zielpunktes ein" ng-model="createAndUpdateRouteCtrl.destination" required autofill />
+                                            </div>
+                                        </div>
+                                       
+                                        <button type="button" class="col-xxs-12 col-xs-12 col-sm-3 col-md-3 col-lg-2 btn btn-w-m btn-primary button-max-height calculate-button pull-right" ng-click="createAndUpdateRouteCtrl.calculateRoute();" ng-disabled="createAndUpdateRouteCtrl.createandUpdateRouteDifferentForm.$invalid">Route berechnen</button>
+                                    </form>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-12 display-flex margin-top no-padding" ng-show="createAndUpdateRouteCtrl.createMode === 'same'">
+                                    <form class="col-xxs-12 col-xs-12 col-lg-12 no-padding" role="form" name="createAndUpdateRouteCtrl.createandUpdateRouteSameForm">
+                                        <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-10 input-group-container">
+                                            <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-6 display-flex align-center first-input-group-container">
+                                                <label class="col-xxs-12 col-xs-12 col-md-2 col-lg-4 no-padding margin-right">Start- / Zielpunkt</label>
+                                                <input class="col-xxs-12 col-xs-12 col-lg-8 form-control second-input-group-container__inputfield" name="sourceAndDestination" type="text" id="sourceAndDestination" placeholder="Geben Sie bitte die Adresse des Start- und Zielpunktes ein" ng-model="createAndUpdateRouteCtrl.sourceAndDestination" required autofocus autofill/>
+                                            </div>
+                                            <div class="col-xxs-12 col-xs-12 col-md-12 col-lg-6 display-flex align-center second-input-group-container">
+                                                <label class="col-xxs-12 col-xs-12 col-md-2 col-lg-4 no-padding margin-right">Wegpunkt</label>
+                                                <input class="col-xxs-12 col-xs-12 col-md-10 col-lg-8 form-control second-input-group-container__inputfield" name="waypoint" type="text" id="waypoint" placeholder="Geben Sie bitte die Adresse des Wegpunktes ein" ng-model="createAndUpdateRouteCtrl.waypoint" required autofill/>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="col-xxs-12 col-xs-12 col-sm-3 col-md-3 col-lg-2 btn btn-w-m btn-primary button-max-height calculate-button pull-right" ng-click="createAndUpdateRouteCtrl.calculateRoute();" ng-disabled="createAndUpdateRouteCtrl.createandUpdateRouteSameForm.$invalid">Route berechnen</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="flex-container-column flex-one container-min-height margin-top">
+                                <div id="routeMap" class="flex-one"></div>
+                            </div>
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-button-container no-padding">
+                                <button type="button" class="btn btn-w-m btn-primary flex-button-container__button" ng-click="createAndUpdateRouteCtrl.saveRoute();">Speichern</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

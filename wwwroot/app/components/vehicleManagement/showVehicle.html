@@ -1,0 +1,74 @@
+﻿<div id="showVehicle">
+    <div class="row wrapper ibox-content border-bottom white-bg page-heading">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="">
+                <h1>Steckbrief</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/">Startseite</a>
+                    </li>
+                    <li>
+                        <a href="#/VehicleManagement">Fahrzeuge anzeigen</a>
+                    </li>
+                    <li class="active">
+                        <strong>{{showVehicleCtrl.vehicle.RegistrationNumber}}</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="wrapper wrapper-content animated fadeInRight margin-to-footer">
+                <div class="ibox-content p-xl">
+                    <!--Steckbrief des selektierten Fahrzeuges.-->
+                    <div class="row flex-container" ng-hide="showVehicleCtrl.vehicleEditable">
+                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-6">
+                            <form method="get" class="form-horizontal">
+                                <h3>Allgemein</h3>
+                                <div class="form-group">
+                                    <!--Fahrzeugtyp des selektierten Fahrzeugs.-->
+                                    <label class="col-xxs-12 col-xs-5 col-sm-5 col-lg-5 label-left">Fahrzeugtyp</label>
+                                    <div class="col-xxs-12 col-xs-7 col-sm-7 col-lg-7">
+                                        <label class="label-left">{{showVehicleCtrl.vehicle.VehicleType.Name}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xxs-12 col-xs-5 col-sm-5 col-lg-5 label-left">Kennzeichen</label>
+                                    <div class="col-xxs-12 col-xs-7 col-sm-7 col-lg-7">
+                                        <label class="label-left">{{showVehicleCtrl.vehicle.RegistrationNumber}}</label>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <h3>Eigenschaften</h3>
+                                <!--Hier werden die Eigenschaften mit Werten des selektierten Fahrzuegs aufgelistet-->
+                                <div class="form-group" ng-repeat="vehiclePropertyWithValue in showVehicleCtrl.vehicle.Properties">
+                                    <label class="col-xxs-12 col-xs-5 col-sm-5 col-lg-5 label-left">{{vehiclePropertyWithValue.Property.Name}}</label>
+                                    <div class="col-xxs-12 col-xs-7 col-sm-7 col-lg-7">
+                                        <label class="label-left">{{vehiclePropertyWithValue.Value + " " + vehiclePropertyWithValue.Property.Unit}}</label>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <!--Button zum Bearbeiten und Löschen eines Fahrzeuges-->
+                                <div class="flex-button-container">
+                                    <button class="btn btn-primary flex-button-container__button" type="submit" ng-click="showVehicleCtrl.editVehicle()">Bearbeiten</button>
+                                    <button class="btn btn-danger flex-button-container__button" type="submit" ng-click="showVehicleCtrl.deleteVehicleById()">Löschen</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!--Bereich für das Fahrzeugbild-->
+                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-6 display-flex">
+                            <form method="get" class="form-horizontal display-flex flex-one">
+                                <div class="img-container display-flex">
+                                    <div class="vehicle-picture-preview" ng-hide="showVehicleCtrl.vehicle.Picture">Bild</div>
+                                    <img ng-show="showVehicleCtrl.vehicle.Picture" src="data:image/png;base64,{{showVehicleCtrl.vehicle.Picture}}" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

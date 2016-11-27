@@ -1,0 +1,72 @@
+﻿#profile{
+    .inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+    }
+
+    .header {
+        @include flexbox((
+            display: flex,
+            justify-content: space-between
+        ));     
+    }
+
+    .max-width {
+        max-width: 100%;
+    }
+
+    .user-details-container {
+        margin-top: 20px;
+    }
+
+    .user-update-container {
+        margin-top: 20px;
+    }
+
+    .update-user-picture-button-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .save-or-abort-button-aligner {
+        padding-right: 0; 
+        padding-left: 9px; 
+        @include flexbox((
+            display: flex,
+            justify-content: space-between
+        ));   
+    }
+
+     .profile-image-container{
+         
+         margin-top: 20px;
+
+         @include flexbox((
+            display: flex,
+            flex-direction: column,
+            align-items: center
+         ));   
+         
+         img {
+             @include border-radius(50%);
+             border: 1px solid;
+         } 
+     }
+
+    .profile-picture-preview {
+        @include border-radius(50%);
+        @include flexbox((
+            display: flex,
+            justify-content: center,
+            align-items: center
+        ));
+        font-size: 100px;
+        height: 25vh;
+        width: 25vh;
+        border: 2px solid #676a6c;
+    }
+}

@@ -1,0 +1,138 @@
+﻿
+//Wird auf jede col Klasse angewendet in der ein p Tag ist. 
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.margin-to-footer {
+    margin-bottom: 20px;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.margin-right {
+    margin-right: 5px;
+}
+
+.no-margin-top {
+    margin-top: 0!important;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.no-margin {
+    margin: 0!important;
+}
+
+//Wird auf die Label um die Datepicker-Icons angewendet
+.datePickerLabel {
+        margin-bottom: 0px;
+    }
+
+//Allgemeine flex Container Klasse
+.flex-container {
+    @include display-flex;
+}
+
+//flex-button-container für Buttons, die größer 768px rechts und kleiner 768px mittig orientiert sein sollen. 
+.flex-button-container {
+    @include display-flex;
+    @include flex-wrap(wrap);
+    justify-content: center;
+    padding: 0;
+
+     @media screen and (min-width: 768px) {
+        justify-content: flex-end;
+     }
+}
+
+//Buttons in flex-button-container
+.flex-button-container__button
+{
+    margin-left: 0px;
+    width: 100%;
+    margin-top: 20px;
+
+    @media screen and (min-width: 768px) {
+        width: auto;
+        margin-left: 10px;
+     }
+}
+
+.align-items-end {
+    @include justify-content(flex-end);
+}
+
+//Display table, damit der content container alle enthaltenen Elemente als table-cell erkennt und somit height des container gesetzt wird. 
+.content-container {
+    display: table;
+    padding-bottom: 39px;
+}
+
+.label-left {
+    text-align: left;
+}
+
+.flex-one {
+    @include flexbox ((
+        flex: 1 auto
+    ));
+}
+
+.flex-container-column {
+    @include flexbox ((
+        display: flex,
+        flex-direction: column
+    ));
+}
+
+.full-width {
+    width: 100%;
+}
+
+.container-min-height {
+    min-height: 400px;
+}
+
+.table-body-limiter {
+    max-height: 50vh; 
+    overflow: auto; 
+    margin-bottom: 15px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.button-min-height {
+    min-height: 30px;
+}
+
+.create-button-min-height {
+    min-height: 34px;
+}
+
+.display-table-row {
+    display: table-row;
+}
+
+.boxcontainer {
+    display: initial;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.selected {
+    background-color: #dcdcdc;
+}
+
+.adjust-border-width {
+    border-top-width: 3px;
+}
+

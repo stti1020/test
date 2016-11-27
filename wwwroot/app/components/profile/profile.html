@@ -1,0 +1,120 @@
+﻿<div id="profile">
+    <div class="row wrapper ibox-content border-bottom white-bg page-heading">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="header">
+                <div>
+                    <h1>Profil</h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="#/">Startseite</a>
+                        </li>
+                        <li class="active">
+                            <strong>Profilverwaltung</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight margin-to-footer">
+                <div class="ibox-content p-xl">
+                    <div class="row">
+                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-6 profile-image-container">
+                            <div class="profile-picture-preview" ng-hide="profileCtrl.user.ProfilePicture">{{profileCtrl.user.FirstName[0] + profileCtrl.user.LastName[0]}}</div>
+                            <img ng-show="profileCtrl.user.ProfilePicture" src="data:image/png;base64, {{profileCtrl.user.ProfilePicture}}" height="200" width="200"/>
+                            <div class="update-user-picture-button-container max-width">
+                                <input type="file" name="file" id="file" class="inputfile hidden" accept=".jpeg, .png, .gif, .bmp" />
+                                <label for="file" class="btn btn-w-m btn-primary">Profilbild ändern</label>
+                                <image-upload mode="profile"></image-upload>
+                            </div>
+                        </div>
+
+                        <!--Benutzerdaten des Users anzeigen-->
+                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-6 user-details-container" ng-hide="profileCtrl.profileEditable">
+                            <div class="row">
+                                <div class="col-xxs-12 col-xs-12 col-sm-4 col-lg-4 margin-bottom">
+                                    <p class="text-primary"><strong>Vorname</strong>
+                                    </p>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-8 col-lg-8 margin-bottom">
+                                    <p>{{profileCtrl.user.FirstName}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xxs-12 col-xs-12 col-sm-4 col-lg-4 margin-bottom">
+                                    <p class="text-primary"><strong>Nachname</strong>
+                                    </p>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-8 col-lg-8 margin-bottom">
+                                    <p>{{profileCtrl.user.LastName}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xxs-12 col-xs-12 col-sm-4 col-lg-4 margin-bottom">
+                                    <p class="text-primary"><strong>E-Mail</strong>
+                                    </p>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-8 col-lg-8 margin-bottom">
+                                    <p>{{profileCtrl.user.Email}}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-button-container">
+                                    <button type="button" class="btn btn-w-m btn-primary flex-button-container__button" ng-click="profileCtrl.editProfile()">Profil ändern</button>
+                                </div>
+                            </div>                    
+                        </div>
+
+                        <!--Benutzerdaten editieren-->
+                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-6 user-update-container" ng-show="profileCtrl.profileEditable">
+                            <form role="form" name="profileCtrl.changeUserForm">
+                                <div class="col-xxs-12 col-xs-12 col-sm-4 col-lg-4 margin-bottom">
+                                    <p class="text-primary"><strong>Vorname</strong>
+                                    </p>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-8 col-lg-8 form-group">
+                                    <div class="form-group" ng-class="{'has-error' : profileCtrl.changeUserForm.firstname.$invalid}">
+                                        <input type="text" class="form-control" name="firstname" id="firstnameInput" ng-pattern="/^[a-z ,.'-]+$/i" ng-model="profileCtrl.user.FirstName" ng-maxlength="25" autofocus required />
+                                        <p class="text-danger" ng-show="profileCtrl.changeUserForm.firstname.$error.pattern">Im Vornamen sind keine Ziffern und Sonderzeichen erlaubt! Zudem muss der erste Buchstabe groß geschrieben werden</p>
+                                        <p class="text-danger" ng-show="profileCtrl.changeUserForm.firstname.$error.required">Der Vornamen darf nicht leer sein!</p>
+                                        <p class="text-danger" ng-show="profileCtrl.changeUserForm.firstname.$error.maxlength">Maximal 25 Zeichen!</p>
+                                    </div>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-4 col-lg-4 margin-bottom">
+                                    <p class="text-primary">
+                                        <strong>Nachname</strong>
+                                    </p>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-8 col-lg-8 form-group margin-bottom">
+                                    <div class="form-group" ng-class="{'has-error' : profileCtrl.changeUserForm.lastname.$invalid}">
+                                        <input type="text" class="form-control" name="lastname" ng-pattern="/^[a-z ,.'-]+$/i" ng-model="profileCtrl.user.LastName" ng-maxlength="25" required />
+                                        <p class="text-danger" ng-show="profileCtrl.changeUserForm.lastname.$error.pattern">Im Nachnamen sind keine Ziffern und Sonderzeichen erlaubt! Zudem muss der erste Buchstabe groß geschrieben werden</p>
+                                        <p class="text-danger" ng-show="profileCtrl.changeUserForm.lastname.$error.required">Der Nachnamen darf nicht leer sein!</p>
+                                        <p class="text-danger" ng-show="profileCtrl.changeUserForm.lastname.$error.maxlength">Maximal 25 Zeichen!</p>
+                                    </div>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-4 col-lg-4 margin-bottom">
+                                    <p class="text-primary"><strong>E-Mail</strong>
+                                    </p>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 col-sm-8 col-lg-8 form-group margin-bottom">
+                                    <input type="text" class="form-control" ng-model="profileCtrl.user.Email" disabled/>
+                                </div>
+                            </form>
+
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-button-container">
+                                <button type="button" class="btn btn-w-m btn-primary flex-button-container__button" ng-disabled="profileCtrl.changeUserForm.$invalid" ng-click="profileCtrl.saveProfileChanges()">Speichern</button>
+                                <button type="button" class="btn btn-w-m btn-danger flex-button-container__button" ng-click="profileCtrl.abortProfileChanges()">Verwerfen</button>
+                                <button type="button" class="btn btn-w-m btn-danger flex-button-container__button" ng-click="profileCtrl.deleteProfile()" ng-show="profileCtrl.profileEditable">Profil löschen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

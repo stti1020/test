@@ -1,0 +1,270 @@
+﻿<div id="createAndUpdateTour">
+    <div>
+        <div class="row wrapper ibox-content border-bottom white-bg page-heading">
+            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+                <div>
+                    <h1>Tourenverwaltung</h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="#/">Startseite</a>
+                        </li>
+                        <li>
+                            <a href="#/TourManagement">Touren anzeigen</a>
+                        </li>
+                        <li class="active">
+                            <strong>Tour erstellen oder bearbeiten</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight flex-container-column margin-to-footer">
+                <div class="display-flex flex-one">
+                    <div class="flex-container-column flex-one container-min-height">
+                        <div class="ibox-content flex-container-column flex-one">
+                            <center class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+                                <nav>
+                                    <ul class="pagination">
+                                        <li>
+                                            <a href="" aria-label="Previous" ng-click="createAndUpdateTourCtrl.selectPrevPage()">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li ng-class="{ active: createAndUpdateTourCtrl.selectedPage === 'General'}"><a ng-click="createAndUpdateTourCtrl.selectPage('General')">Allgemeines</a></li>
+                                        <li ng-class="{ active: createAndUpdateTourCtrl.selectedPage === 'Route'}"><a ng-click="createAndUpdateTourCtrl.selectPage('Route')">Route</a></li>
+                                        <li ng-class="{ active: createAndUpdateTourCtrl.selectedPage === 'Vehicles'}"><a ng-click="createAndUpdateTourCtrl.selectPage('Vehicles')">Fahrzeuge</a></li>
+                                        <li ng-class="{ active: createAndUpdateTourCtrl.selectedPage === 'Summary'}"><a ng-click="createAndUpdateTourCtrl.selectPage('Summary')">Zusammenfassung</a></li>
+                                        <li>
+                                            <a href="" aria-label="Next" ng-click="createAndUpdateTourCtrl.selectNextPage()">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </center>
+
+                            <!--Tab Allgemeines-->    
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12" ng-show="createAndUpdateTourCtrl.showGeneralPage">
+                                <form role="form" name="createAndUpdateTourCtrl.changeTourForm">
+                                    <div>
+                                        <p class="text-primary">
+                                            <strong>Tourserie?</strong>
+                                        </p>
+                                        <input id="tourSeriesCheckbox" type="checkbox" class="" ng-click="createAndUpdateTourCtrl.selectTourSeries()" ng-checked="createAndUpdateTourCtrl.selectedTourSeries"/>
+                                    </div>
+                                    <div class="margin-top">
+                                        <p class="text-primary">
+                                            <strong>Name</strong>
+                                        </p>
+                                        <div class="input-group date col-xxs-12 col-xs-12 col-sm-6 col-lg-6" ng-class="{'has-error' : createAndUpdateTourCtrl.changeTourForm.tourname.$dirty && createAndUpdateTourCtrl.changeTourForm.tourname.$invalid}">
+                                            <input name="tourname" type="text" class="form-control" ng-model="createAndUpdateTourCtrl.tourName" required ng-maxlength="50"/>
+                                            <p class="text-danger" ng-show="createAndUpdateTourCtrl.changeTourForm.tourname.$error.maxlength">Der Name der Tour kann maximal 50 Zeichen enthalten</p>
+                                            <p class="text-danger" ng-show="createAndUpdateTourCtrl.changeTourForm.tourname.$error.required && createAndUpdateTourCtrl.changeTourForm.tourname.$dirty">Die Tour muss einen Namen haben!</p>
+                                        </div>
+                                    </div>
+                                    <div class="margin-top" ng-show="createAndUpdateTourCtrl.selectedTourSeries">
+                                        <p class="text-primary">
+                                            <strong>Zeitspanne der Tourserie</strong>
+                                        </p>
+                                        <div class="input-group input-daterange col-xxs-12 col-xs-12 col-sm-6 col-lg-6">
+                                            <span class="input-group-addon">
+                                                <label for="datepickerFrom" class="datePickerLabel"><i class="fa fa-calendar cursor-pointer"></i></label>
+                                            </span>
+                                            <input id="datepickerFrom" type="text" class="form-control input-background" ng-model="createAndUpdateTourCtrl.tourSeriesStartDate" ng-change="createAndUpdateTourCtrl.validateTourSeriesStartDate()" readonly>
+                                            <span class="input-group-addon">bis</span>
+                                            <span class="input-group-addon">
+                                                <label for="datepickerTo" class="datePickerLabel"><i class="fa fa-calendar cursor-pointer"></i></label>
+                                            </span>
+                                            <input id="datepickerTo" type="text" class="form-control input-background" ng-model="createAndUpdateTourCtrl.tourSeriesEndDate" ng-change="createAndUpdateTourCtrl.validateTourSeriesEndDate()" readonly>
+                                        </div>
+                                        <p class="text-primary margin-top">
+                                            <strong>Intervall (in Tage) der Tourserie</strong>
+                                        </p>
+                                        <div class="input-group date col-xxs-12 col-xs-12 col-sm-6 col-lg-6" ng-class="{'has-error' : createAndUpdateTourCtrl.changeTourForm.intervall.$dirty && createAndUpdateTourCtrl.changeTourForm.intervall.$invalid}">
+                                            <input type="text" name="intervall" class="form-control" ng-model="createAndUpdateTourCtrl.tourSeriesInterval" ng-pattern="/^\d+$/" ng-maxlength="3" required/>
+                                            <p class="text-danger" ng-show="createAndUpdateTourCtrl.changeTourForm.intervall.$error.maxlength">Ein Intervall kann maximal 999 Tage sein</p>
+                                            <p class="text-danger" ng-show="createAndUpdateTourCtrl.changeTourForm.intervall.$error.required && createAndUpdateTourCtrl.changeTourForm.intervall.$dirty">Es muss eine Zahl eingegeben werden!</p>
+                                            <p class="text-danger" ng-show="createAndUpdateTourCtrl.changeTourForm.intervall.$error.pattern">Das Intervall wird nur in Zahlen angegeben!</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="margin-top" ng-hide="createAndUpdateTourCtrl.selectedTourSeries">
+                                        <p class="text-primary">
+                                            <strong>Startdatum</strong>
+                                        </p>
+                                        <div class="input-group date col-xxs-12 col-xs-12 col-sm-6 col-lg-6">
+                                            <div class="input-group-addon">
+                                                <label for="datepickerStartDate" class="datePickerLabel"><i class="fa fa-calendar cursor-pointer"></i></label>
+                                            </div>
+                                            <input id="datepickerStartDate" type="text" name="tourStartDate" class="form-control input-background" ng-model="createAndUpdateTourCtrl.tourStartDate" ng-change="createAndUpdateTourCtrl.validateTourDate()" readonly>
+                                        </div>
+                                        <div class="margin-top">
+                                            <p class="text-primary">
+                                                <strong>Abgeschlossen?</strong>
+                                            </p>
+                                            <input type="checkbox" class="" ng-click="createAndUpdateTourCtrl.selectDone()" ng-checked="createAndUpdateTourCtrl.selectedDone"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!--Tab Route-->
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 route-container" ng-show="createAndUpdateTourCtrl.showRoutePage">
+                                <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                    <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 input-group display-flex">
+                                        <input ng-model="route.id" type="text" placeholder="Suche" name="search" class="form-control" ng-keyup="createAndUpdateTourCtrl.filterValueChanged()" focus-input pagination="true">
+                                    </div>
+              
+                                    <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover no-margin-bottom margin-top" data-page-size="8">
+                                        <thead>
+                                            <tr>
+                                                <th data-toggle="true" class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable footable-first-column cursor-pointer" ng-click="orderByField='StartName'; reverseSort = !reverseSort">Startort<span class="footable-sort-indicator"></span></th>
+                                                <th class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable cursor-pointer" ng-click="orderByField='DestinationName'; reverseSort = !reverseSort">Zielort<span class="footable-sort-indicator"></span></th>
+                                                <th class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable cursor-pointer" ng-click="orderByField='Distance'; reverseSort = !reverseSort">Distanz<span class="footable-sort-indicator"></span></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="table-body-limiter">
+                                        <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover">
+                                            <tbody>
+                                                <tr class="footable-even display-table-row cursor-pointer  {{createAndUpdateTourCtrl.getIfSelected(route.Id)}}" ng-repeat="route in createAndUpdateTourCtrl.allRoutes | filter: route.id |orderBy:orderByField:reverseSort" ng-click="createAndUpdateTourCtrl.selectRoute(route, $index)">
+                                                    <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-first-column"><span class="footable-toggle"></span>{{route.StartName}}</td>
+                                                    <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible">{{route.DestinationName}}</td>
+                                                    <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visiblefootable-last-column">{{route.Distance / 1000}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 flex-container">
+                                    <form class="flex-container flex-one container-min-height">
+                                        <div id="selectedRouteMap" class="flex-one"></div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!--Tab Fahrzeuge-->
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12" ng-show="createAndUpdateTourCtrl.showVehiclesPage">
+                                <div class="form-group flex-container-column">
+                                    <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 input-group display-flex">
+                                        <input ng-model="vehicle.id" type="text" placeholder="Suche" name="search" class="form-control" ng-keyup="createAndUpdateTourCtrl.filterValueChanged()" focus-input pagination="true">
+                                    </div>
+                                 
+                                    <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover no-margin-bottom margin-top" data-page-size="8">
+                                        <thead>
+                                            <tr>
+                                                <th data-toggle="true" class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable cursor-pointer" ng-click="orderByField='RegistrationNumber'; reverseSort = !reverseSort">Kennzeichen<span class="footable-sort-indicator"></span></th>
+                                                <th class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable cursor-pointer" ng-click="orderByField='VehicleType.Name'; reverseSort = !reverseSort">Fahrzeugtyp<span class="footable-sort-indicator"></span></th>
+                                                <th class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable cursor-pointer" ng-click="">Ausgewählt<span class="footable-sort-indicator"></span></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="table-body-limiter">
+                                        <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover">
+                                            <tbody>
+                                                <tr class="footable-even display-table-row cursor-pointer" ng-repeat="vehicle in createAndUpdateTourCtrl.allVehicles | filter: vehicle.id |orderBy:orderByField:reverseSort" ng-click="createAndUpdateTourCtrl.checkVehicle(vehicle)">
+                                                    <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-first-column"><span class="footable-toggle"></span>{{vehicle.RegistrationNumber}}</td>
+                                                    <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible">{{vehicle.VehicleType.Name}}</td>
+                                                    <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visiblefootable-last-column">
+                                                        <input type="checkbox" class="" ng-checked="createAndUpdateTourCtrl.checkedVehicle(vehicle.Id)" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Tab Zusammenfassung-->
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-container-column flex-one" ng-show="createAndUpdateTourCtrl.showSummaryPage">
+                                <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 no-padding">
+                                    <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 flex-container-column">
+                                        <div>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Tourserie</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.getCompletedValue(createAndUpdateTourCtrl.selectedTourSeries)}}</p>
+
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Name</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.tourName}}</p>
+                                        </div>
+                                        <div ng-show="createAndUpdateTourCtrl.selectedTourSeries">
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Zeitspanne</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.tourSeriesStartDate}} bis {{createAndUpdateTourCtrl.tourSeriesEndDate}}</p>
+                                        </div>
+                                        <div ng-show="createAndUpdateTourCtrl.selectedTourSeries">
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Zeitintervall in Tagen</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.tourSeriesInterval}}</p>
+                                        </div>
+                                        <div ng-hide="createAndUpdateTourCtrl.selectedTourSeries">
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Startdatum</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.tourStartDate}}</p>
+                                        </div>
+                                        <div ng-hide="createAndUpdateTourCtrl.selectedTourSeries">
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Abgeschlossen?</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.getCompletedValue(createAndUpdateTourCtrl.selectedDone)}}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Startort</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.selectedRoute.StartName}}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Zielort</strong>
+                                            </p>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6 paragraph-min-height">{{createAndUpdateTourCtrl.selectedRoute.DestinationName}}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-primary col-xxs-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <strong>Fahrzeuge</strong>
+                                            </p>
+                                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 vehicle-container">
+                                                <center>
+                                                    <p class="col-xxs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 vehicle-container__title">{{createAndUpdateTourCtrl.currentVehicle}}</p>
+
+                                                    <button class="btn btn-w-m btn-default col-xxs-12 col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-click="createAndUpdateTourCtrl.selectedTourPrevVehicle()" ng-disabled="createAndUpdateTourCtrl.tourVehicles.length <= 1"><<</button>
+
+                                                    <button class="btn btn-w-m btn-default  col-xxs-12 col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-click="createAndUpdateTourCtrl.selectedTourNextVehicle()" ng-disabled="createAndUpdateTourCtrl.tourVehicles.length <= 1">>></button>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Map-->
+                                    <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 flex-container">
+                                        <form class="form-horizontal flex-container flex-one container-min-height">
+                                            <div class="flex-one" id="selectedSummaryMap"></div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!--Button-->
+                                <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-button-container">
+                                        <button type="button" class="btn btn-w-m btn-primary flex-button-container__button" ng-click="createAndUpdateTourCtrl.saveTour()">Speichern</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

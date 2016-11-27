@@ -1,0 +1,70 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNet.Http
+@using Microsoft.AspNet.Http.Authentication
+@model RegisterViewModel
+@inject SignInManager<User> SignInManager
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flottenmanagement Web App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/$lib_bower/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/$lib_bower/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/styles/css/style.css" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/$lib_bower/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/$lib_bower/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/styles/css/style.css" asp-append-version="true" />
+    </environment>
+
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name">FM</h1>
+            </div>
+            <h3>Registrieren Sie sich im Flottenmanagement</h3>
+            <form class="m-t" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
+                <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="FirstName" type="text" class="form-control" placeholder="Vorname" required="">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="LastName" type="text" class="form-control" placeholder="Nachname" required="">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Email"type="email" class="form-control" placeholder="EMail" required="">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Passwort" required="">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Passwort wiederholen" required="">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Registrieren</button>
+
+                <p class="text-muted text-center"><small>Sie haben schon einen Account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Login", "Account")">Anmelden</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

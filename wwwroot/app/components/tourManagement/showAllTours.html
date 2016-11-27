@@ -1,0 +1,129 @@
+﻿<div id="showAllTours">
+    <div class="row wrapper ibox-content border-bottom white-bg page-heading">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div>
+                <h1>Tourenverwaltung</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/">Startseite</a>
+                    </li>
+                    <li class="active">
+                        <strong>Touren anzeigen</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight flex-container-column margin-to-footer">
+                <div class="row box-container flex-one">
+                    <div class="flex-container-column flex-one container-min-height table-container col-xxs-12 col-xs-12 col-md-12 col-lg-8">
+                        <div class="ibox-content flex-container-column flex-one">
+                            <div class="form-inline">
+                                <center>
+                                    <div class="form-group col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">{{showAllToursCtrl.tourOrSeriesFilter}}<span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="" ng-click="showAllToursCtrl.selectTourOrSeries('Touren')">Touren</a></li>
+                                                <li><a href="" ng-click="showAllToursCtrl.selectTourOrSeries('Tourserien')">Tourserien</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="input-group input-daterange">
+                                            <span class="input-group-addon">
+                                                <label for="datepickerFrom" class="datePickerLabel"><i class="fa fa-calendar cursor-pointer"></i></label>
+                                            </span>
+                                            <input id="datepickerFrom" type="text" class="form-control input-background" ng-change="showAllToursCtrl.filter()" ng-model="showAllToursCtrl.dateFrom" readonly>
+                                            <span class="input-group-addon">bis</span>
+                                            <span class="input-group-addon">
+                                                <label for="datepickerTo" class="datePickerLabel"><i class="fa fa-calendar cursor-pointer"></i></label>
+                                            </span>
+                                            <input id="datepickerTo" type="text" class="form-control input-background" ng-change="showAllToursCtrl.filter()" ng-model="showAllToursCtrl.dateTo" readonly>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                            <form class="form-horizontal flex-container-column flex-one">
+                                <input ng-model="filterText" type="text" placeholder="Suche" class="form-control margin-top" focus-input>
+                                <div ng-show="showAllToursCtrl.tourOrSeriesFilter === 'Touren'">
+                                    <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover margin-top" data-page-size="8">
+                                        <thead>
+                                        <tr>
+                                            <th data-toggle="true" class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-first-column footable-sortable cursor-pointer" ng-click="orderToursFieldBy = 'Name'; reverseSort = !reverseSort">Name<span class="footable-sort-indicator"></span></th>
+                                            <th class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable cursor-pointer" ng-click="orderToursFieldBy = 'StartDate'; reverseSort = !reverseSort">Startdatum<span class="footable-sort-indicator"></span></th>
+                                            <th class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-sortable cursor-pointer" ng-click="orderToursFieldBy = 'Done'; reverseSort = !reverseSort">Abgeschlossen<span class="footable-sort-indicator"></span></th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="table-body-limiter">
+                                        <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover" data-page-size="8">
+                                            <tbody>
+                                            <tr class="footable-even tableTours cursor-pointer {{showAllToursCtrl.getIfSelected(tour.Id)}}" ng-repeat="tour in showAllToursCtrl.allToursByDateRange | showAllToursFilter: filterText | orderBy: orderToursFieldBy : reverseSort" ng-click="showAllToursCtrl.selectTour(tour)">
+                                                <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-first-column col-lg-2"><span class="footable-toggle"></span>{{tour.Name}}</td>
+                                                <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible col-lg-2">{{showAllToursCtrl.getDataValue(tour.StartDate)}}</td>
+                                                <td class="col-xxs-4 col-xs-4 col-md-4 col-lg-4 footable-visible footable-last-column col-lg-2">{{showAllToursCtrl.getCompletedValue(tour.Done)}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div ng-show="showAllToursCtrl.tourOrSeriesFilter === 'Tourserien'">
+                                    <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover" data-page-size="8">
+                                        <thead>
+                                        <tr>
+                                            <th data-toggle="true" class="col-xxs-2 col-xs-2 col-md-2 col-lg-2 footable-visible footable-first-column footable-sortable cursor-pointer" ng-click="">Name<span class="footable-sort-indicator"></span></th>
+                                            <th class="col-xxs-2 col-xs-2 col-md-2 col-lg-2 footable-visible footable-sortable cursor-pointer" ng-click="">Startdatum<span class="footable-sort-indicator"></span></th>
+                                            <th class="col-xxs-2 col-xs-2 col-md-2 col-lg-2 footable-visible footable-sortable cursor-pointer" ng-click="">Enddatum<span class="footable-sort-indicator"></span></th>
+                                            <th class="col-xxs-3 col-xs-3 col-md-3 col-lg-3 footable-visible footable-sortable cursor-pointer" ng-click="">Startort<span class="footable-sort-indicator"></span></th>
+                                            <th class="col-xxs-3 col-xs-3 col-md-3 col-lg-3 footable-visible footable-sortable cursor-pointer" ng-click="">Zielort<span class="footable-sort-indicator"></span></th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="table-body-limiter">
+                                        <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint footable-loaded table-hover" data-page-size="8">
+                                            <tbody>
+                                            <tr class="footable-even tableTours cursor-pointer {{showAllToursCtrl.getIfSelected(tour.Id)}}" ng-repeat="tour in showAllToursCtrl.allTourSeriesByDateRange | filter: filterTable()" ng-click="showAllToursCtrl.selectTour(tour)">
+                                                <td class="col-xxs-2 col-xs-2 col-md-2 col-lg-2 footable-visible footable-first-column"><span class="footable-toggle"></span>{{tour.TourSeries.Name}}</td>
+                                                <td class="col-xxs-2 col-xs-2 col-md-2 col-lg-2 footable-visible">{{showAllToursCtrl.getDataValue(tour.TourSeries.StartDate)}}</td>
+                                                <td class="col-xxs-2 col-xs-2 col-md-2 col-lg-2 footable-visible">{{showAllToursCtrl.getDataValue(tour.TourSeries.EndDate)}}</td>
+                                                <td class="col-xxs-3 col-xs-3 col-md-3 col-lg-3 footable-visible">{{tour.TourSeries.Route.StartName}}</td>
+                                                <td class="col-xxs-3 col-xs-3 col-md-3 col-lg-3 footable-visible footable-last-column">{{tour.TourSeries.Route.DestinationName}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12 flex-button-container no-padding">
+                                <a href="#TourManagement/createAndUpdateTour" class="flex-button-container__button no-margin-top btn btn-w-m btn-primary">Neue Tour anlegen</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-container-column flex-one container-min-height col-xxs-12 col-xs-12 col-md-12 col-lg-4">
+                        <div class="ibox-title">
+                            <h5>Ausgewählte Tour</h5>
+                        </div>
+                        <div class="ibox-content flex-container-column flex-one">
+                            <form class="form-horizontal flex-container-column flex-one container-min-height">
+                                <div id="selectedTourMap" class="flex-one"></div>
+                                <div class="margin-top  tour-vehicle-box">
+                                    <center>
+                                        <p class="tour-vehicle-box__title col-xxs-12 col-xs-12 col-md-12 col-lg-12">{{showAllToursCtrl.currentVehicle}}</p>
+                                        <button class="btn btn-w-m btn-default col-xxs-12 col-xs-6 col-md-6 col-lg-6" ng-click="showAllToursCtrl.selectedTourPrevVehicle()" ng-disabled="!showAllToursCtrl.selectedTour || showAllToursCtrl.selectedTour.TourVehicles.length === 0 || showAllToursCtrl.selectedTour.TourVehicles.length === 1"><<</button>
+                                        <button class="btn btn-w-m btn-default  col-xxs-12 col-xs-6 col-md-6 col-lg-6" ng-click="showAllToursCtrl.selectedTourNextVehicle()"  ng-disabled="!showAllToursCtrl.selectedTour || showAllToursCtrl.selectedTour.TourVehicles.length === 0 || showAllToursCtrl.selectedTour.TourVehicles.length === 1">>></button>
+                                    </center>
+                                </div>
+                            </form>
+
+                            <div class="col-xxs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top no-padding button-container">
+                                <button class="col-xxs-6 col-xs-6 col-sm-2 col-lg-6 margin-right btn btn-w-m btn-primary" ng-click="showAllToursCtrl.updateTour()" ng-disabled="!showAllToursCtrl.selectedTour">Bearbeiten</button>
+                                <button class="col-xxs-6 col-xs-6 col-sm-2 col-lg-6 btn btn-w-m btn-danger"  ng-click="showAllToursCtrl.deleteTour()" ng-disabled="!showAllToursCtrl.selectedTour">Löschen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

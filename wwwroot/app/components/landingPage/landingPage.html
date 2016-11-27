@@ -1,0 +1,21 @@
+﻿<div id="landingPage">
+    <div class="row">
+        <div class="ibox border-bottom float-e-margins">
+            <div class="ibox-content text-center p-md">
+                <h1 class="text-navy">Flottenmanagement - Startseite</h1>
+                <p>Dies ist die Startseite des Flottenmanagement-Systems.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div ng-repeat="element in landingPageCtrl.elements">
+            <a href="#{{element.href}}" class="col-xxs-12 col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="boxcontainer__box">
+                    <h4 class="boxcontainer__header m-b-xxs">{{element.name}}</h4>
+                    <img class="boxcontainer__img" ng-src="{{element.imageSource}}"/>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

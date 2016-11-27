@@ -1,0 +1,42 @@
+﻿#showAllRoutes {
+
+    .margin-bottom {
+        margin-bottom: 20px;
+    }
+
+    .box-container {
+        @include display-flex;
+    }
+
+    .search-bar-minheight {
+        min-height: 34px;
+    }
+
+    .container-min-height {
+
+        min-height: 280px;
+    }
+
+    .button-container {
+        @include display-flex;
+    }
+
+    @media screen and (max-width: 1200px) {
+
+        .box-container {
+            @include flex-direction(column);
+        }
+
+        .table-container {
+            margin-bottom: 20px;
+        }
+        .button-container {
+            @include justify-content(flex-end);
+        }
+
+        .table-body-limiter {
+            max-height: 30vh;
+        }
+    }
+
+}

@@ -1,0 +1,50 @@
+﻿#showAllTours {
+
+    .tour-vehicle-box {
+        border: 1px solid #e5e6e7;
+    }
+
+    .tour-vehicle-box__title{
+        margin-top: 5px;
+    }
+
+    .table-body-limiter {
+        max-height: 30vh;
+    }
+
+    .margin-bottom {
+        margin-bottom: 20px;
+    }
+
+    .box-container {
+        @include display-flex;
+    }
+
+    .container-min-height {
+        min-height: 380px;
+    }
+
+    .button-container {
+        @include display-flex;
+    }
+
+    .input-background {
+        background-color:white;  
+    }
+
+    @media screen and (max-width: 1200px) {
+
+        .box-container {
+            @include flex-direction(column);
+        }
+
+        .table-container {
+            margin-bottom: 20px;
+        }
+        .button-container {
+            @include justify-content(flex-end);
+        }
+    }
+
+}
+

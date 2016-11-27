@@ -1,0 +1,66 @@
+﻿<div id="navigation">
+    <div id="wrapper" ng-controller="NavigationController as navCtrl">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <center>
+                            <a href="#Profile">
+                                <div>
+                                    <div class="profile-picture-replacement" ng-hide="navCtrl.currentUser.ProfilePicture">{{navCtrl.currentUser.FirstName[0] + navCtrl.currentUser.LastName[0]}}</div>
+                                    <img ng-show="navCtrl.currentUser.ProfilePicture" class="profile-picture" src="data:image/png;base64, {{navCtrl.currentUser.ProfilePicture}}"/>
+                                    <span class="block m-t-xs one-line-ellipsis">
+                                        <strong class="font-bold">
+                                            {{ navCtrl.currentUser.FirstName }} {{navCtrl.currentUser.LastName}}
+                                            <br />
+                                        </strong>
+                                    </span>
+                                </div>
+                            </a>
+                        </center>
+                    </li>
+
+                    <li>
+                        <div class="logo-element">
+                            FM
+                        </div>
+                    </li>
+
+
+                    <li ng-class=navCtrl.getIfActive('/Map')>
+                        <a href="#Map">
+                            <i class="navigation-icon fa fa-map-marker"></i>
+                            <span class="nav-label" data-i18n="nav.metrics">Echtzeitkarte</span> 
+                        </a>
+                    </li>
+
+                    <li ng-class=navCtrl.getIfActive('/VehicleManagement')>
+
+                        <a href="#VehicleManagement">
+                            <i class="navigation-icon fa fa-car"></i>
+                            <span class="nav-label" data-i18n="nav.metrics">Fahrzeugverwaltung</span>
+                        </a>
+                    </li>
+                    <li ng-class=navCtrl.getIfActive('/TourManagement')>
+                        <a href="#TourManagement">
+                            <i class="navigation-icon fa fa-clock-o"></i> 
+                            <span class="nav-label" data-i18n="nav.metrics">Tourenverwaltung</span> 
+                        </a>
+                    </li>
+                    <li ng-class=navCtrl.getIfActive('/RouteManagement')>
+                        <a href="#RouteManagement">
+                            <i class="navigation-icon fa fa-road"></i> 
+                            <span class="nav-label" data-i18n="nav.metrics">Routenverwaltung</span> 
+                        </a>
+                    </li>
+                    <li ng-class=navCtrl.getIfActive('/Profile')>
+                        <a href="#Profile">
+                            <i class="navigation-icon fa fa-user"></i> 
+                            <span class="nav-label" data-i18n="nav.metrics">Profilverwaltung</span> 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

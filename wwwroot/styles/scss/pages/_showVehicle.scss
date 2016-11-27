@@ -1,0 +1,47 @@
+﻿#showVehicle{
+
+
+    .img-container {
+
+        img {
+            width: 100%; 
+            height: 50%;
+            border: solid 2px; 
+            display: block; 
+            margin-left: auto;
+        }
+    }
+
+    p {
+        padding-top: 7px;
+    }
+
+    .vehicle-picture-preview {
+        @include flexbox((
+            display: flex,
+            justify-content: center,
+            align-items: center,
+            flex: 1 auto
+        ));
+        width: 100%;
+        border: 2px solid;    
+        font-size: 70px;        
+    }
+
+
+    @media screen and (max-width: 1200px) {
+
+        .flex-container {
+           @include flex-direction(column);
+        }
+
+        .img-container {
+            margin-top: 20px;
+        }
+
+        .vehicle-picture-preview {
+            height: 400px;
+        }
+    }
+}
+

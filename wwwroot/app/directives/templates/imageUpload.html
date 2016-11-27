@@ -1,0 +1,18 @@
+﻿<div class="hidden" id="canvasContainer">
+    <div class="table">
+        <div class="tableRow">
+            <div class="tableCell box">
+                <br />
+                <strong>Neues Bild</strong>
+                <br />
+                <canvas id="panel" style="max-width: 100%;"></canvas>
+                <br>
+                <div class="tableCell" style="margin-bottom: 20px;">
+                    Zoom:  <input id='scaleSlider' type='range' min='1' max='3.0' step='0.01' value='1.0' />
+                </div>
+                <button class="btn btn-w-m btn-primary" id="uploadCanvas">Bild bestätigen</button>
+                <button class="btn btn-w-m btn-danger" id="discardChanges" ng-click="discardChanges()">Änderungen verwerfen</button>
+            </div>
+        </div>
+    </div>
+</div>

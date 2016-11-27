@@ -1,0 +1,95 @@
+﻿<div id="updateVehicle">
+    <div class="row wrapper ibox-content border-bottom white-bg page-heading">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div>
+                <h1>Fahrzeug bearbeiten</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/">Startseite</a>
+                    </li>
+                    <li>
+                        <a href="#/VehicleManagement">Fahrzeuge anzeigen</a>
+                    </li>
+                    <li>
+                        <a href="/#/VehicleManagement/showVehicle">{{updateVehicleCtrl.vehicle.RegistrationNumber}}</a>
+                    </li>
+                    <li class="active">
+                        <strong href="#/VehicleManagement">Fahrzeug bearbeiten</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight margin-to-footer">
+                <div class="ibox-content p-xl">
+                    <!--Geladenes Fahrzeug editieren.-->
+                    <div class="row flex-container">
+                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-6">
+                            <form method="get" name="updateVehicleForm" class="form-horizontal">
+                                <h3>Allgemein</h3>
+                                <div class="form-group">
+                                    <label class="col-xxs-12 col-xs-5 col-sm-5 col-lg-5 label-left">Fahrzeugtyp</label>
+                                    <div class="col-xxs-12 col-xs-7 col-sm-7 col-lg-7">
+                                        <!--Auflisten aller Fahrzeugtypen als Option des DropDowns. Fahrzeugtypen werden bereits beim Routing geladen.-->
+                                        <select class="form-control m-b" name="account" ng-model="updateVehicleCtrl.selectedVehicleType" ng-options="vehicleType.Name for vehicleType in updateVehicleCtrl.allVehicleTypes"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xxs-12 col-xs-5 col-sm-5 col-lg-5 label-left">Kennzeichen</label>
+                                    <div class="col-xxs-12 col-xs-7 col-sm-7 col-lg-7 " ng-class="{'has-error': updateVehicleForm.registrationNumber.$invalid}">
+                                        <input class="form-control" type="text" name="registrationNumber" ng-change="updateVehicleCtrl.vehicleWithRegistrationNumberExists(updateVehicleCtrl.vehicle.RegistrationNumber)" ng-pattern="/^[A-Z]{1,3}-[A-Z]{2}-[0-9]{1,4}$/" ng-model="updateVehicleCtrl.vehicle.RegistrationNumber" required />
+                                        <p class="text-danger" ng-show="updateVehicleForm.registrationNumber.$error.required">Das Kennzeichen darf nicht leer sein!</p>
+                                        <p class="text-danger" ng-show="updateVehicleForm.registrationNumber.$error.pattern">Kein gültiges Kennzeichen!</p>
+                                        <p class="text-danger" ng-show="updateVehicleCtrl.vehicleAlreadyExists">Ein Fahrzeug mit diesem Kennzeichen existiert bereits!</p>
+
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <h3>Eigenschaften</h3>
+                                <!--Hier werden die Eigenschaften und mit Werten gefüllten Input Felder abhängig vom geladenen Fahrzeug generiert-->
+                                <div class="form-group" ng-repeat="vehiclePropertyWithValue in updateVehicleCtrl.vehicle.Properties">
+                                    <label class="col-xxs-12 col-xs-5 col-sm-5 col-lg-5 label-left">{{vehiclePropertyWithValue.Property.Name}}</label>
+                                    <div class="col-xxs-12 col-xs-7 col-sm-7 col-lg-7" ng-class="{'has-error': updateVehicleForm.{{vehiclePropertyWithValue.Property.Name}}.$invalid}">
+                                        <input class="form-control" ctype="text" name="{{vehiclePropertyWithValue.Property.Name}}" ng-pattern="/^[0-9]+(?:\.[0-9]*)?$/" ng-maxlength="10" ng-model="vehiclePropertyWithValue.Value" />
+                                        <p class="text-danger" ng-show="updateVehicleForm.{{vehiclePropertyWithValue.Property.Name}}.$error.pattern">Fehlerhafte Eingabe!</p>
+                                        <p class="text-danger" ng-show="updateVehicleForm.{{vehiclePropertyWithValue.Property.Name}}.$error.maxlength">Maximal 10 Ziffern!</p>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <!--Button zum Updaten eines Fahrzeuges und Button zum Verwerfen der Eingben der Input Felder-->
+                                <div>
+                                    <div class="col-lg-12 col-sm-12 col-xs-12 flex-button-container">
+                                        <button class="btn btn-primary flex-button-container__button" type="submit" ng-click="updateVehicleCtrl.updateVehicle()" ng-disabled="updateVehicleForm.$invalid">Speichern</button>
+                                        <button class="btn btn-danger flex-button-container__button" type="submit" ng-click="updateVehicleCtrl.discardUpdate()">Verwerfen</button>
+                                        <button class="btn btn-danger flex-button-container__button" type="submit" ng-click="updateVehicleCtrl.deleteVehicleById()">Löschen</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--Bereich für das Fahrzeugbild-->
+                        <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-6 display-flex flex-container-column">
+                            <form method="get" class="form-horizontal flex-container-column flex-one">
+                                <div class="img-container display-flex flex-one">
+                                    <div class="vehicle-picture-preview" ng-hide="updateVehicleCtrl.vehicle.Picture">Bild</div>
+                                    <img ng-show="updateVehicleCtrl.vehicle.Picture" src="data:image/png;base64,{{updateVehicleCtrl.vehicle.Picture}}" style="width: 100%; height: 50%;" />
+                                </div>                             
+                                <div class="col-xxs-12 col-xs-12 col-sm-12 col-lg-12">
+                                    <div class="flex-button-container">
+                                        <input type="file" name="file" id="file" class="inputfile hidden" accept=".jpeg, .png, .gif, .bmp"/>
+                                        <label for="file" class="btn btn-w-m btn-primary flex-button-container__button">Fahrzeugbild ändern</label>
+                                    </div>
+                                    <!--Direktive für den Image-Upload-->
+                                    <image-upload mode="updateVehicle"></image-upload>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+
